@@ -1,0 +1,10 @@
+[Unit]
+Description=BigLinux Execute User After Login in Plasma
+After=plasma-workspace.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/big-execute-after-user-login
+
+[Install]
+WantedBy=plasma-workspace.target

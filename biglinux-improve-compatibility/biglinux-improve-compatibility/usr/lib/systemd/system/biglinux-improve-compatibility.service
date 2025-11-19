@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Script to improve compatibility
+After=display-manager.service network.target
+DefaultDependencies=no
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/biglinux-improve-compatibility
+RemainAfterExit=true
+
+
+[Install]
+WantedBy=graphical.target

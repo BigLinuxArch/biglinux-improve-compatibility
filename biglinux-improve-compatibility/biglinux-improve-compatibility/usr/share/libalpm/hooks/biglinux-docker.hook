@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = docker
+
+[Action]
+Description = Install Docker and create the docker group
+When = PostTransaction
+Exec = /bin/sh -c "/usr/share/libalpm/scripts/biglinux-install-docker"

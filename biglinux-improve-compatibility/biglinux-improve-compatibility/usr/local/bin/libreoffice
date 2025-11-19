@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [[ $XDG_CURRENT_DESKTOP = "KDE" ]]; then
+
+    # Use gtk3 theme with KDE open/save dialog in KDE
+    # if [[ $XDG_SESSION_DESKTOP == "KDE" ]]; then
+    #     if [[ -z "$SAL_USE_VCLPLUGIN" ]]; then
+    #         export SAL_USE_VCLPLUGIN=gtk3_kde6
+    #         if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+    #             export SAL_USE_VCLPLUGIN=gtk3 # In 2024-06-05 QT6 is very slow in libreoffice + wayland, maybe back in future with kf6 name
+    #         fi
+    #     fi
+    # fi
+
+    if [[ $XDG_CURRENT_DESKTOP = "wayland" ]] && [[ $Vulkan_Supported = "1" ]]; then
+        # Temporary fix, force nvidia to use opengl over vulkan with zink
+        if lsmod | grep -q nvidia_drm; then
+
+            [[ -z $__GLX_VENDOR_LIBRARY_NAME ]]     && export __GLX_VENDOR_LIBRARY_NAME=mesa
+            [[ -z $MESA_LOADER_DRIVER_OVERRIDE ]]   && export MESA_LOADER_DRIVER_OVERRIDE=zink
+            [[ -z $GALLIUM_DRIVER ]]                && export GALLIUM_DRIVER=zink
+        fi
+    fi
+    
+    # kf6 in wayland mode is very slow, force xcb
+    [[ -z $SAL_USE_VCLPLUGIN ]] && export SAL_USE_VCLPLUGIN=kf6
+    [[ -z $QT_QPA_PLATFORM ]]   && export QT_QPA_PLATFORM=xcb
+    export SAL_DISABLE_WATCHDOG=1
+
+fi
+
+# Improve icon color detection
+if [[ "$(dconf read /org/gnome/desktop/interface/color-scheme)" == "'prefer-dark'" ]]; then
+
+    [[ -z $VCL_ICONS_FOR_DARK_THEME ]] && export VCL_ICONS_FOR_DARK_THEME=1
+fi
+
+exec /usr/bin/libreoffice ${1+"$@"}
