@@ -5,7 +5,7 @@ pkgver=25.09.26_1
 pkgrel=1749
 arch=('any')
 license=('GPL')
-depends=('start-stop-daemon' 'wxwidgets-gtk3-3.0' 'ld-lsb' 'openssl-1.1' 'kdotool-git' 'linux-firmware' 'execstack')
+depends=('start-stop-daemon' 'wxwidgets-gtk3' 'ld-lsb' 'openssl-1.1' 'kdotool-git' 'linux-firmware' 'execstack')
 provides=('wxwidgets3.0=3.0.5-3')
 conflicts=('wxwidgets3.0')
 replaces=('wxwidgets3.0')
