@@ -2,8 +2,8 @@
 
 pkgbuildFile=$(find -type f -name PKGBUILD)
 
-# troca wxgtk3-runtime por wxwidgets-gtk3-3.0
-sed -i '/depends=/s/wxgtk3-runtime/wxwidgets-gtk3-3.0/' $pkgbuildFile
+# troca wxgtk3-runtime por wxwidgets-gtk3
+sed -i '/depends=/s/wxgtk3-runtime/wxwidgets-gtk3/' $pkgbuildFile
 
 # # Add ao depends ao pkgbuild
 # sed -i "/\bdepends=/s/(/\('xpto\' 'xpto3\' 'xpto2\' /" $pkgbuildFile
